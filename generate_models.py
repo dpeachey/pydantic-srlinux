@@ -35,6 +35,13 @@ def main() -> None:
         help="Limit output to config or state only. Default is config and state combined.",
         default=None,
     )
+    parser.add_argument(
+        "--strip-namespace",
+        action="store_true",
+        dest="strip_namespace",
+        help="Strip the namespace from the generated models",
+        default=False,
+    )
     args = parser.parse_args()
 
     # exit if ${SRL_REPO_PATH} is not set
@@ -79,6 +86,8 @@ def main() -> None:
     relay_args.extend(
         ["-f", args.module.replace("srl_nokia-", "").replace("-", "_") + ".py"]
     )
+    if args.strip_namespace:
+        relay_args.extend(["--strip-namespace"])
 
     if args.platform:
         platform = collection.platforms.get(args.platform)
