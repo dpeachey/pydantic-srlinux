@@ -15,8 +15,12 @@ from yang_map import Repo, YangMap
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate a pydantify command for a given YANG module")
-    parser.add_argument("--module", required=True, help="Module name to process", type=str)
+    parser = argparse.ArgumentParser(
+        description="Generate a pydantify command for a given YANG module"
+    )
+    parser.add_argument(
+        "--module", required=True, help="Module name to process", type=str
+    )
     parser.add_argument(
         "--platform",
         required=False,
@@ -79,7 +83,9 @@ def main() -> None:
         relay_args.extend(["--data-type", args.data_type])
 
     relay_args.extend(["-o", "pydantic_srlinux/models"])
-    relay_args.extend(["-f", args.module.replace("srl_nokia-", "").replace("-", "_") + ".py"])
+    relay_args.extend(
+        ["-f", args.module.replace("srl_nokia-", "").replace("-", "_") + ".py"]
+    )
     if args.strip_namespace:
         relay_args.extend(["--strip-namespace"])
 
